@@ -12,7 +12,7 @@ type Receipt = models.Receipt
 
 var receipts *models.Receipts
 
-// Slightly hacky, but very readable dependency injection
+// Slightly hacky, but very readable dependency injection. Error handling isn't great, but it doesn't particularly matter for our purposes since it's hardcoded in main.go.
 func SetReceiptsInstance(r *models.Receipts) {
 	receipts = r
 }

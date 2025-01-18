@@ -11,6 +11,7 @@ func TestProcessReceipts_HappyPath(t *testing.T) {
 	//given
 	wTest := httptest.NewRecorder()
 	rTest := httptest.NewRequest("POST", "/receipts/process", strings.NewReader(`{"items": [{"name": "item1", "price": "1.00"}]}`))
+	SetReceiptsInstance(models.NewReceipts())
 
 	//when
 	ProcessReceipts(wTest, rTest)
@@ -46,7 +47,9 @@ func TestProcessReceipts_IncorrectMethod(t *testing.T) {
 func TestGetPoints_HappyPath(t *testing.T) {
 	//given
 	receipt := Receipt{ID: "1234"}
-	models.NewReceipts().Add(receipt)
+	receipts := models.NewReceipts()
+	receipts.Add(receipt)
+	SetReceiptsInstance(receipts)
 	wTest := httptest.NewRecorder()
 	rTest := httptest.NewRequest("GET", "/receipts/1234/points", nil)
 	rTest.SetPathValue("id", "1234")
